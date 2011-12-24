@@ -16,12 +16,10 @@ public class StopWatch
     private long stopTime = 0;
     private boolean running = false;
     
+    // what's this method for?
     public boolean notRunning()
     {
-    	if(running)
-    		return false;
-    	
-    	return true;
+    	return !running;
     }
 
     public void start()

@@ -5,9 +5,11 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Main extends JApplet
 {
+    Controller panel;
+
     public void init()
     {
-       	Controller panel = new Controller();
+       	panel = new Controller();
 
         // Import Sounds
         panel.GAME_PANEL.MODEL.correctSFX = getAudioClip(getCodeBase(), "answerCorrect.wav");
@@ -19,4 +21,10 @@ public class Main extends JApplet
         //setSize(500, 200); // or to the side?
 		
     } // init()
+
+    public void destroy()
+    {
+        panel.GAME_PANEL.MODEL.close();
+    } // destroy()
+
 } // Game class

@@ -3,6 +3,7 @@
 import java.applet.AudioClip;
 import java.util.Random;
 import javax.swing.Timer;
+import java.io.*;
 
 public class Model {
 
@@ -14,6 +15,7 @@ public class Model {
     protected StopWatch watch;
     protected Timer timer;
     protected AudioClip correctSFX, accessSFX, wrongSFX;
+    protected FileWriter outputStream = null; // should I use BufferedWriter or PrintStream instead?
     
     Model()
     {
@@ -24,6 +26,14 @@ public class Model {
     	
         generateProb();
         gameReplay();
+
+        try {
+            // create file for output
+            outputStream = new FileWriter("YourRecord.txt"); // added
+            outputStream.write("User Name: _____\r\n\r\n");
+            // instead of using "\r\n" probably System.getProperty("line.separator") would be better...
+        } catch (IOException x)
+        { System.out.println("There was an error"); }
     }
 
     // Generate Random Problems
@@ -39,6 +49,13 @@ public class Model {
 
     protected void answerCorrect()
     {
+        try {
+            String output = "Problems Left: " + numNeeded
+                    + "\r\nElapsed Time: " + watch.getElapsedTime() + "\r\n\r\n";
+            outputStream.write(output);
+        } catch (IOException x)
+        { System.out.println("Could Not Write"); }
+
         correctSFX.play();
         numNeeded--;
         
@@ -74,4 +91,15 @@ public class Model {
         msg = "";
         time = "<html>Elapsed Time: <font color =\"GREEN\">0</font> Seconds</html>";
     }
+
+    // ABSOLUTELY MUST CLOSE BEFORE CLOSING APPLICATION
+    protected void close()
+    {
+        try {
+            outputStream.write("End of File");
+            outputStream.close();
+        } catch (IOException x)
+        { System.out.println("Nothing to Close"); }
+    }
+
 }

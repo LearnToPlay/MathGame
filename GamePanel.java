@@ -78,6 +78,7 @@ public class GamePanel extends JPanel
         buttons[0] = new JButton("0");
         ButtonPanel.add(buttons[0]);
         
+        // put everything together
         add(VBox);
         add(ButtonPanel);
     } // end of GamePanel() constructor
@@ -88,7 +89,7 @@ public class GamePanel extends JPanel
         {
             MODEL.time = "<html>Elapsed Time: <font color =\"GREEN\">"
                     + MODEL.watch.getElapsedTimeSecs()
-                    + "</font> Seconds</html>"; /** added color **/
+                    + "</font> Seconds</html>";
             timeLab.setText(MODEL.time);
         }
         else if(event.equals("invalid"))
